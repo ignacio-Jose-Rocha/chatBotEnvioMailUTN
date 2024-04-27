@@ -1,10 +1,18 @@
-function obtenerVectores() {
+const moduloDatos = (function() {
     let legajos = [10495, 2, 3, 4, 5];
     let contrasenia = ["ignacio jose rocha", "a b", "c d", "e f", "g h"];
     let dnis = [40855566, 7, 8, 9, 10, 11];
-    return { legajos, contrasenia, dnis };
-}
-const { legajos, contrasenia, dnis } = obtenerVectores();
+
+    function obtenerVectores() {
+        return { legajos, contrasenia, dnis };
+    }
+
+    return {
+        obtenerVectores
+    };
+})();
+
+const { legajos, contrasenia, dnis } = moduloDatos.obtenerVectores();
 function validarNumero2() {
     let numero = document.getElementById('exampleInputEmail122').value;
 
