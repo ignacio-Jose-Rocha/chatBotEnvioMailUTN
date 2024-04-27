@@ -1,6 +1,6 @@
 let legajo = localStorage.getItem('legajo');
 if (!legajo) {
-    window.location.replace("https://chatbot-utn-frsr.vercel.app/");
+    window.location.replace("https://chat-bot-utn.vercel.app/");
 }
 
 let nombreUsuario = localStorage.getItem('nombre');
@@ -13,5 +13,5 @@ document.getElementById('logoutBtn').addEventListener('click', function() {
    
     localStorage.removeItem('legajo');
     localStorage.removeItem('nombre');
-    window.location.href = "https://chatbot-utn-frsr.vercel.app/";
+    window.location.href = "https://chat-bot-utn.vercel.app/";
 });
