@@ -7,6 +7,10 @@ body {
     justify-content: center; 
     align-items: center; 
 }
+p {
+      margin: 0.2em 0; 
+}
+
 #responseContainer {
     max-height: 400px;
     overflow-y: auto; 

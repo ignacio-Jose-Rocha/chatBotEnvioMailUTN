@@ -12,37 +12,38 @@
     <link rel="stylesheet" href="styles.css" />
     <link rel="icon" href="utn-2.svg" type="image/png" />
     <title>Login UTN</title>
-    
   </head>
-  <body><div id="loader"></div>
-    
-   
-    
+  <body>
+    <div id="loader"></div>
+
     <div id="response"></div>
     <div class="centered-form">
       <div class="form-container">
         <div class="buttons-container text-center">
-          
           <button id="showUsernameBtn" class="btn btn-primary">Mostrar Usuario</button>
           <button id="logoutBtn" class="btn btn-danger">Cerrar Sesión</button>
-        
-      </div></br>
+        </div>
+        <br />
+        <p>1-Ver cuota</p>
+        <p>2-Ver correo docente</p>
+        <p>3-Ver correo institucional</p>
+        <p>4-Chatbot</p>
         <form id="messageForm">
-            <div class="search-container">
-            <div style="display: flex"> 
-                <input
-                  type="text"
-                  id="messageInput"
-                  placeholder="Ingrese su mensaje"
-                />
-                
-                <button type="submit" id="sendButton">Enviar</button>
-                <button type="button" id="clearChat">Borrar Chat</button> 
-              </div>
+          <div class="search-container">
+            <div style="display: flex">
+              <input
+                type="number"
+                id="messageInput"
+                placeholder="Ingrese un número"
+              />
+
+              <button type="submit" id="sendButton">Enviar</button>
+              <button type="button" id="clearChat">Borrar</button>
             </div>
+          </div>
         </form>
-    </br>
-    
+        <br />
+
         <div id="responseContainer"></div>
       </div>
     </div>
@@ -55,35 +56,66 @@
     </script>
     <script type="module">
       import { GoogleGenerativeAI } from "@google/generative-ai";
-
+  
       const API_KEY = "AIzaSyB4-JvSfUniYFg01DEXPMnfGIkHthd-82s";
-
+  
       const genAI = new GoogleGenerativeAI(API_KEY);
       const model = genAI.getGenerativeModel({
         model: "gemini-1.5-pro-latest",
       });
-      document.getElementById("messageForm").addEventListener("submit", function(event) {
-        event.preventDefault(); 
-        
-        const prompt = document.getElementById("messageInput").value; 
-
-        run(prompt); 
+  
+      let chatbotActivated = false;
+  
+      document.getElementById("messageForm").addEventListener("submit", async function(event) {
+        event.preventDefault();
+  
+        const input = document.getElementById("messageInput").value;
+  
+        if (!chatbotActivated) {
+          const inputNumber = parseInt(input);
+  
+          if (inputNumber === 4) {
+            chatbotActivated = true;
+            document.getElementById("messageInput").type = "text";
+            document.getElementById("messageInput").placeholder = "Ingrese su mensaje";
+            document.getElementById("messageInput").value = "";
+            document.getElementById("responseContainer").innerHTML = "<div>Chatbot activado</div>";
+            document.getElementById("clearChat").textContent = "Borrar Chat";
+          } else if (inputNumber >= 1 && inputNumber <= 3) {
+            const messages = {
+              1: "<div>cuota: $25,150 se pagan 24 cuotas</div>",
+              2: "<div>Ver mail de docentes:</div><div>-ariel betancud abetancud@frsr.utn.edu.ar</div><div>- natalia lucero nattylucero777@gmail.com</div><div>- osvaldo giordanini ogiordanini@yahoo.com.ar</div>",
+              3: "<div>Ver mail institucional:</div><div>- lucas pietrelli lpietrelli@frsr.utn.edu.ar</div><div>- ingresos ingresos@frsr.utn.edu.ar</div><div>-jorge jorgeoscar.dominguez@gmail.com</div>"
+            };
+            document.getElementById("responseContainer").innerHTML = messages[inputNumber];
+            document.getElementById("clearChat").textContent = "Borrar";
+          } else {
+            document.getElementById("responseContainer").innerHTML = "<div>Número no válido</div>";
+          }
+        } else {
+          const result = await model.generateContent(input);
+          const response = await result.response;
+          const text = response.text();
+  
+          document.getElementById("responseContainer").innerHTML += `<div><strong>Usuario:</strong> ${input}</div><div><strong>Chatbot:</strong> ${text}</div>`;
+  
+          document.getElementById("messageInput").value = "";
+        }
       });
+  
       document.getElementById("clearChat").addEventListener("click", function() {
-      responses.length = 0; 
-      document.getElementById("responseContainer").innerHTML = ""; 
-    });
-      const responses = [];
-      async function run(prompt) {
-
-        const result = await model.generateContent(prompt);
-        const response = await result.response;
-        const text = response.text();
-        responses.push(text);
-        const responseContainer = document.getElementById("responseContainer");
-        responseContainer.innerHTML = responses.map(response => `<div>${response}</div>`).join('');
-      }
-
+        document.getElementById("responseContainer").innerHTML = "";
+        
+        chatbotActivated = false;
+        
+        document.getElementById("messageInput").type = "number";
+        document.getElementById("messageInput").placeholder = "Ingrese un número";
+        if (chatbotActivated) {
+          document.getElementById("clearChat").textContent = "Borrar Chat";
+        } else {
+          document.getElementById("clearChat").textContent = "Borrar";
+        }
+      });
     </script>
     <script src="script.js"></script>
   </body>
