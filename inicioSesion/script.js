@@ -1,7 +1,7 @@
 const moduloDatos = (function() {
     let legajos = [10495, 10333, 10328, 10487, 10494,10386,10433,10554,10416];
     let contrasenia = ["ignacio jose rocha", "gonzalo balmaceda", "enzo astorga", "diego rafael llanos ramos", "maximiliano robilotta","guillermo Giannone","javier mariñanco","debora celeste pulitta","matías landi"];
-    let dnis = [40855566, 44662148, 41083045, 47937545, 41672857, 31923118, 42449860, 2,41438322,];
+    let dnis = [40855566, 44662148, 41083045, 47937545, 41672857, 31923118, 42449860, 2,41438322];
     
 
     function obtenerVectores() {
