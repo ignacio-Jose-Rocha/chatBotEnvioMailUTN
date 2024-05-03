@@ -13,24 +13,22 @@
     <div id="loader"></div>
     <div class="centered-form">
          <div class="form-container">
-            <form id="loginForm" onsubmit="return validarFormulario()" action="./inicioSesion/menu.html" onsubmit="return validarNumero()">
+            <form id="loginForm" onsubmit="return validarFormulario()" action="./inicioSesion/menu.html">
                 <div id="popup-message" class="popup-message"></div>
                 <div class="image-container"> 
                     <img src="./inicioSesion/UTN_logo.jpg" class="svg"> 
                 </div>
                 <div class="form-group" >
-                    <label for="nombre">nombre</label>
-                    <input class="form-control" id="nombre" aria-describedby="emailHelp" placeholder="ingrese su nombre completo" oninput="validarNombre()">
-                    <div id="error-message" class="error-message">El nombre ingresado es incorrecto.</div>
+                    <label for="nombre">Nombre</label>
+                    <input class="form-control" id="nombre" aria-describedby="emailHelp" placeholder="Ingrese su nombre completo" >
                     <br/>
-                    <label for="exampleInputEmail1">identificacion</label>
-                    <input class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="ingrese su legajo" oninput="validarNumero()">
-                    <div id="error-message" class="error-message">El legajo ingresado es incorrecto.</div>
+                    <label for="exampleInputEmail1">Identificación</label>
+                    <input class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Ingrese su legajo o DNI" oninput="validarNumero()">
                     <br/>
                     
                 </div>
-                <button type="submit" class="btn btn-primary mt-1">ingresar</button>
-                <a a href="./inicioSesion/olvidaste.html" class="btn btn-danger mt-1">¿Olvidaste tu identificación?</a>
+                <button type="submit" class="btn btn-primary mt-1">Ingresar</button>
+                <a href="./inicioSesion/olvidaste.html" class="btn btn-danger mt-1">¿Olvidaste tu identificación?</a>
                 
             </form>
         </div>
