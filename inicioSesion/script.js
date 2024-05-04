@@ -1,31 +1,63 @@
-const moduloDatos = (function () {
-  let legajos = [10495, 10333, 10328, 10487, 10494, 10386, 10433, 10554, 10416];
-  let contrasenia = [
-    "ignacio jose rocha",
-    "gonzalo balmaceda",
-    "enzo astorga",
-    "diego rafael llanos ramos",
-    "maximiliano robilotta",
-    "guillermo giannone",
-    "javier mariñanco",
-    "debora celeste pulitta",
-    "matias landi",
+let legajos = [];
+let contrasenias = [];
+let dnis = [];
+
+
+const usuariosJSON = [
+    {
+      "legajo": 10495,
+      "contrasenia": "ignacio jose rocha",
+      "dnis": 40855566
+    },
+    {
+      "legajo": 10333,
+      "contrasenia": "gonzalo balmaceda",
+      "dnis": 44662148
+    },
+    {
+      "legajo": 10328,
+      "contrasenia": "enzo astorga",
+      "dnis": 41083045
+    },
+    {
+      "legajo": 10487,
+      "contrasenia": "diego rafael llanos ramos",
+      "dnis": 47937545
+    },
+    {
+      "legajo": 10494,
+      "contrasenia": "maximiliano robilotta",
+      "dnis": 41672857
+    },
+    {
+      "legajo": 10386,
+      "contrasenia": "guillermo giannone",
+      "dnis": 31923118
+    },
+    {
+      "legajo": 10433,
+      "contrasenia": "javier mariñanco",
+      "dnis": 42449860
+    },
+    {
+      "legajo": 10554,
+      "contrasenia": "debora celeste pulitta",
+      "dnis": 35912813
+    },
+    {
+      "legajo": 10416,
+      "contrasenia": "matias landi",
+      "dnis": 41438322
+    }
   ];
-  let dnis = [
-    40855566, 44662148, 41083045, 47937545, 41672857, 31923118, 42449860,
-    35912813, 41438322
-  ];
 
-  function obtenerVectores() {
-    return { legajos, contrasenia, dnis };
-  }
+usuariosJSON.forEach(usuario => {
+  legajos.push(usuario.legajo);
+  contrasenias.push(usuario.contrasenia);
+  dnis.push(usuario.dnis);
+});
 
-  return {
-    obtenerVectores,
-  };
-})();
 
-const { legajos, contrasenia, dnis } = moduloDatos.obtenerVectores();
 
 function validarNumero() {
   let numero = document.getElementById("exampleInputEmail1").value.trim();
@@ -37,7 +69,7 @@ function validarNumero() {
   }
 
   let index = legajos.indexOf(parseInt(numero));
-  let index2 = contrasenia.findIndex(
+  let index2 = contrasenias.findIndex(
     (element) => element.toLowerCase().trim() === nombre.toLowerCase().trim()
   );
 
@@ -58,30 +90,16 @@ function validarNumero() {
 function validarFormulario() {
   let index = legajos.indexOf(parseInt(document.getElementById("exampleInputEmail1").value.trim()));
   let nombre = document.getElementById("nombre").value.trim();
-  let index2 =contrasenia.findIndex((element) => element.toLowerCase().trim() === nombre.toLowerCase().trim());
+  let index2 = contrasenias.findIndex((element) => element.toLowerCase().trim() === nombre.toLowerCase().trim());
 
-  if (index!==-1 && index2!==-1 && index===index2) {
-      return true;
+  if (index !== -1 && index2 !== -1 && index === index2) {
+    return true;
   } else {
-      alert("los datos son incorrectos");
-      return false; 
+    alert("Los datos son incorrectos");
+    return false;
   }
 }
 
-
-
-
-
-
-
-
-function openModal() {
-  document.getElementById("myModal").style.display = "block";
-}
-
-function closeModal() {
-  document.getElementById("myModal").style.display = "none";
-}
 
 function mostrarLegajo() {
     let numeroDNI = document.getElementById("exampleInputEmail1").value.trim();
