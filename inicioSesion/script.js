@@ -9,11 +9,11 @@ const moduloDatos = (function () {
     "guillermo giannone",
     "javier mariñanco",
     "debora celeste pulitta",
-    "matías landi",
+    "matias landi",
   ];
   let dnis = [
     40855566, 44662148, 41083045, 47937545, 41672857, 31923118, 42449860,
-    35912813, 41438322,
+    35912813, 41438322
   ];
 
   function obtenerVectores() {
@@ -54,20 +54,26 @@ function validarNumero() {
     return false;
   }
 }
-let numeroDNI=legajos.indexOf(parseInt(numero));
+
 function validarFormulario() {
+  let index = legajos.indexOf(parseInt(document.getElementById("exampleInputEmail1").value.trim()));
   let nombre = document.getElementById("nombre").value.trim();
-  let identificacion = document
-    .getElementById("exampleInputEmail1")
-    .value.trim();
+  let index2 =contrasenia.findIndex((element) => element.toLowerCase().trim() === nombre.toLowerCase().trim());
 
-  if (nombre === "" || identificacion === "") {
-    openModal();
-    return false;
+  if (index!==-1 && index2!==-1 && index===index2) {
+      return true;
+  } else {
+      alert("los datos son incorrectos");
+      return false; 
   }
-
-  return true;
 }
+
+
+
+
+
+
+
 
 function openModal() {
   document.getElementById("myModal").style.display = "block";
