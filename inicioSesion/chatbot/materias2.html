@@ -32,9 +32,9 @@
           <div class="search-container">
             <div style="display: flex">
               <input
-                type="number"
+                type="text"
                 id="messageInput"
-                placeholder="Ingrese un número"
+                placeholder="Ingrese un número o mensaje"
               />
 
               <button type="submit" id="sendButton">Enviar</button>
@@ -93,11 +93,19 @@
             document.getElementById("responseContainer").innerHTML = "<div>Número no válido</div>";
           }
         } else {
-          const result = await model.generateContent(input);
-          const response = await result.response;
-          const text = response.text();
-  
-          document.getElementById("responseContainer").innerHTML += `<div><strong>Usuario:</strong> ${input}</div><div><strong>Chatbot:</strong> ${text}</div>`;
+          if (input.toLowerCase().includes("precio") || input.toLowerCase().includes("cuota")) {
+            document.getElementById("responseContainer").innerHTML += "<div><strong>Usuario:</strong> " + input + "</div><div><strong>Chatbot:</strong> 24 cuotas de $25,150</div>";
+          } else {
+            if (input.toLowerCase().includes("mail docentes")) {
+              document.getElementById("responseContainer").innerHTML+="<div><strong>Usuario:</strong> " + input + "<div>Ver mail de docentes:</div><div>-ariel betancud abetancud@frsr.utn.edu.ar</div><div>- natalia lucero nattylucero777@gmail.com</div><div>- osvaldo giordanini ogiordanini@yahoo.com.ar</div>";
+            }  
+            else if (input.toLowerCase().includes("mail institucional")) {
+              document.getElementById("responseContainer").innerHTML+="<div><strong>Usuario:</strong> " + input + "<div>Ver mail institucional:</div><div>- lucas pietrelli lpietrelli@frsr.utn.edu.ar</div><div>- ingresos ingresos@frsr.utn.edu.ar</div><div>-jorge jorgeoscar.dominguez@gmail.com</div>";
+            }
+            else {
+              document.getElementById("responseContainer").innerHTML += "<div><strong>Usuario:</strong> " + input + "</div><div><strong>Chatbot:</strong> " + model.generate(input) + "</div>";
+            }
+          }
   
           document.getElementById("messageInput").value = "";
         }
