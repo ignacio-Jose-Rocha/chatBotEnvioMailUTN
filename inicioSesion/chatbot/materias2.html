@@ -30,8 +30,9 @@
         <p>1-Ver cuota</p>
         <p>2-Ver correo docente</p>
         <p>3-Ver correo institucional</p>
-        <p>4-Chatbot</p>
-        
+        <p>4-horario de cursada</p>
+        <p>5-Ver calendario de clase</p>
+        <p>6-Ver chatbot</p>
         <form id="messageForm">
           <div class="search-container">
             <div style="display: flex">
@@ -59,6 +60,7 @@
       }
     </script>
     <script type="module">
+      
       import { GoogleGenerativeAI } from "@google/generative-ai";
 
       const API_KEY = "AIzaSyAh_7uGwOvSX-S8_r0J1qda07iaHY5v7Ac";
@@ -81,7 +83,7 @@
           if (!chatbotActivated) {
             const inputNumber = parseInt(input);
 
-            if (inputNumber === 4) {
+            if (inputNumber === 6) {
               chatbotActivated = true;
               document.getElementById("messageInput").type = "text";
               document.getElementById("messageInput").placeholder =
@@ -96,18 +98,27 @@
     "<div>¿Cuántas materias son?</div>" +
     "<div>¿Cuántas horas demanda la carrera por semana?</div>";
               document.getElementById("clearChat").textContent = "Borrar Chat";
-            } else if (inputNumber >= 0 && inputNumber <= 3) {
+            } else if (inputNumber >= 0 && inputNumber <= 5) {
               const messages = {
                 0: `<div>apreta aqui para comunicarte con el asistente</div> <a href="${whasapp}" target="_blank">WhatsApp</a>`,
                 1: "<div>cuota: $25,150 se pagan 24 cuotas</div>",
                 2: "<div>Ver mail de docentes:</div><div>-ariel betancud abetancud@frsr.utn.edu.ar</div><div>- natalia lucero nattylucero777@gmail.com</div><div>- osvaldo giordanini ogiordanini@yahoo.com.ar</div>",
                 3: "<div>Ver mail institucional:</div><div>- lucas pietrelli lpietrelli@frsr.utn.edu.ar</div><div>- ingresos ingresos@frsr.utn.edu.ar</div><div>-jorge jorgeoscar.dominguez@gmail.com</div>",
-              };
+                4: "<div>Horario de clases: Lunes a Viernes de 8:00 a 18:00</div>",
+                };
+              if (inputNumber === 5) {
+                Swal.fire({
+                  title: 'Calendario académico',
+                   html: "<img src='Calendario.png' alt='Calendario académico'  style='max-width: 100%; height: auto;'/>",
+                    confirmButtonText: 'Cerrar'
+              });
+              } else {
               document.getElementById("responseContainer").innerHTML =
                 messages[inputNumber];
+              }
               document.getElementById("clearChat").textContent = "Borrar";
-            } 
-           
+            
+            }
             else {
               document.getElementById("responseContainer").innerHTML =
                 "<div>Número no válido</div>";
@@ -204,5 +215,6 @@
         });
     </script>
     <script src="script.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </body>
 </html>
