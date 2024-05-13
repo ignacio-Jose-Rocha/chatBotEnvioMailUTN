@@ -19,27 +19,30 @@
     <div id="response"></div>
     <div class="centered-form">
       <div class="form-container">
-        <div class="buttons-container text-center">
-          <button id="showUsernameBtn" class="btn btn-primary">
+
+          <div class="buttons-container text-center">
+        <button id="showUsernameBtn" class="btn btn-primary">
+            <img id="userImage" src="" style="border-radius: 50%; width: 30px; height: 30px; margin-right: 10px;">
             Mostrar Usuario
-          </button>
-          <button id="logoutBtn" class="btn btn-danger">Cerrar Sesión</button>
-        </div>
+        </button>
+        <button id="logoutBtn" class="btn btn-danger">Cerrar Sesión</button>
+    </div>
         <br />
-        <p>0-hablar con asistente</p>
-        <p>1-Ver cuota</p>
-        <p>2-Ver correo docente</p>
-        <p>3-Ver correo institucional</p>
-        <p>4-horario de cursada</p>
-        <p>5-Ver calendario de clase</p>
-        <p>6-Ver chatbot</p>
+        <p id="option0">0-hablar con asistente</p>
+    <p id="option1">1-Ver cuota</p>
+    <p id="option2">2-Ver correo docente</p>
+    <p id="option3">3-Ver correo institucional</p>
+    <p id="option4">4-horario de cursada</p>
+    <p id="option5">5-Ver calendario de clase</p>
+    <p id="option6">6-Ver chatbot</p>
+    <p id="option7">7-mapa</p>
         <form id="messageForm">
           <div class="search-container">
             <div style="display: flex">
               <input
-                type="text"
+                type="number"
                 id="messageInput"
-                placeholder="Ingrese un número o mensaje"
+                placeholder="Ingrese un número"
               />
 
               <button type="submit" id="sendButton">Enviar</button>
@@ -50,6 +53,22 @@
         <br />
 
         <div id="responseContainer"></div>
+        <div class="modal fade" id="mapModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ubicación</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <!-- Google Maps iframe -->
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3350.447308647422!2d-68.33032848481943!3d-34.61771798046137!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x967e096d637a6a07%3A0x2b4e2a1a9df1a7e6!2sAv.%20Gral.%20J.%20J.%20de%20Urquiza%20314%2C%20M5600%20San%20Rafael%2C%20Mendoza!5e0!3m2!1sen!2sar!4v1633025263438!5m2!1sen!2sar" width="450" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <script type="importmap">
@@ -85,6 +104,13 @@
 
             if (inputNumber === 6) {
               chatbotActivated = true;
+              for (let i = 0; i <= 5; i++) {
+              document.getElementById(`option${i}`).style.display = 'none';
+              if(i===5){
+                document.getElementById(`option${i+2}`).style.display = 'none';
+              }
+            }
+
               document.getElementById("messageInput").type = "text";
               document.getElementById("messageInput").placeholder =
                 "Ingrese su mensaje";
@@ -97,8 +123,9 @@
     "<div>¿La carrera es gratuita?</div>" +
     "<div>¿Cuántas materias son?</div>" +
     "<div>¿Cuántas horas demanda la carrera por semana?</div>";
+
               document.getElementById("clearChat").textContent = "Borrar Chat";
-            } else if (inputNumber >= 0 && inputNumber <= 5) {
+            } else if (inputNumber >= 0 && inputNumber <= 5 || inputNumber === 7) {
               const messages = {
                 0: `<div>apreta aqui para comunicarte con el asistente</div> <a href="${whasapp}" target="_blank">WhatsApp</a>`,
                 1: "<div>cuota: $25,150 se pagan 24 cuotas</div>",
@@ -112,7 +139,18 @@
                    html: "<img src='Calendario.png' alt='Calendario académico'  style='max-width: 100%; height: auto;'/>",
                     confirmButtonText: 'Cerrar'
               });
-              } else {
+              } 
+              if(inputNumber === 7){
+    Swal.fire({
+        title: 'Ubicación',
+        html: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3350.447308647422!2d-68.33032848481943!3d-34.61771798046137!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x967e096d637a6a07%3A0x2b4e2a1a9df1a7e6!2sAv.%20Gral.%20J.%20J.%20de%20Urquiza%20314%2C%20M5600%20San%20Rafael%2C%20Mendoza!5e0!3m2!1sen!2sar!4v1633025263438!5m2!1sen!2sar" width="450" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>',
+        width: 500,
+        padding: '3em',
+        
+        
+    })
+}
+              else {
               document.getElementById("responseContainer").innerHTML =
                 messages[inputNumber];
               }
@@ -200,6 +238,12 @@
       document
         .getElementById("clearChat")
         .addEventListener("click", function () {
+          for (let i = 0; i <= 5; i++) {
+            document.getElementById(`option${i}`).style.display = 'block';
+            if(i===5){
+                document.getElementById(`option${i+2}`).style.display = 'block';
+              }
+          }
           document.getElementById("responseContainer").innerHTML = "";
 
           chatbotActivated = false;
