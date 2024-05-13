@@ -44,7 +44,8 @@ body {
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 10px;
-    background-color: #f9f9f9;
+    background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+    color: white;   
 }
 img.svg {
     width: 180px;
