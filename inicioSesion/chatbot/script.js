@@ -7,12 +7,13 @@ document.addEventListener("DOMContentLoaded", function() {
     
 
     let nombreUsuario = localStorage.getItem('nombre');
-    let userImage = localStorage.getItem('imagen');
+    let userImage = localStorage.getItem('imagen').replace('./', '../');
     if (nombreUsuario) {
         let primerNombre = nombreUsuario.split(' ')[0];
         document.getElementById('showUsernameBtn').innerText = "";
         document.getElementById('showUsernameBtn').innerHTML = `<img id="userImage" src="${userImage}" style="border-radius: 50%; width: 30px; height: 30px; margin-right: 10px;"> Hola, ${primerNombre}`;
     }
+   
    
     document.getElementById('logoutBtn').addEventListener('click', function() {
        
